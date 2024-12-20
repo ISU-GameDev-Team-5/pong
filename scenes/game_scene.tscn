@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://dl8b63sky4sur"]
+
+[ext_resource type="Script" path="res://scenes/game_scene.gd" id="1_qj4ht"]
+[ext_resource type="PackedScene" uid="uid://cc6vlfjge7gfx" path="res://scenes/rocket_left.tscn" id="2_k0abi"]
+[ext_resource type="PackedScene" uid="uid://preoom84p3ym" path="res://scenes/rocket_right.tscn" id="3_56m5s"]
+[ext_resource type="PackedScene" uid="uid://de5ip0llgmrbv" path="res://scenes/ball.tscn" id="3_eg2o2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmesc"]
+size = Vector2(1150, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ghya"]
+size = Vector2(179, 646)
+
+[node name="main" type="Node"]
+script = ExtResource("1_qj4ht")
+
+[node name="Background" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="line" type="ColorRect" parent="Background"]
+offset_left = 575.0
+offset_right = 577.0
+offset_bottom = 646.0
+
+[node name="walls" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="walls"]
+position = Vector2(576, -15)
+shape = SubResource("RectangleShape2D_xmesc")
+
+[node name="Bottom" type="CollisionShape2D" parent="walls"]
+position = Vector2(575, 663)
+shape = SubResource("RectangleShape2D_xmesc")
+
+[node name="GoalLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalLeft"]
+position = Vector2(-90.5, 324)
+shape = SubResource("RectangleShape2D_1ghya")
+
+[node name="GoalRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalRight"]
+position = Vector2(1242, 323)
+shape = SubResource("RectangleShape2D_1ghya")
+
+[node name="LeftRocket" parent="." instance=ExtResource("2_k0abi")]
+position = Vector2(60, 324)
+
+[node name="RightRocket" parent="." instance=ExtResource("3_56m5s")]
+position = Vector2(1112, 324)
+
+[node name="ball" parent="." instance=ExtResource("3_eg2o2")]
+position = Vector2(576, 324)
+
+[node name="Score" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 497.0
+offset_right = 655.0
+offset_bottom = 104.0
+
+[node name="Left" type="Label" parent="Score"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 80
+text = "0"
+
+[node name="Right" type="Label" parent="Score"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 80
+text = "0"
+
+[connection signal="body_entered" from="GoalLeft" to="." method="_on_goal_left_body_entered"]
+[connection signal="body_entered" from="GoalRight" to="." method="_on_goal_right_body_entered"]

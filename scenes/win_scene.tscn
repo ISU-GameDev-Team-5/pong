@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://8qbset8b6l71"]
+
+[ext_resource type="Script" path="res://scenes/win_scene.gd" id="1_rwsqn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_574n6"]
+bg_color = Color(0.791242, 0.478635, 0.702747, 1)
+
+[node name="WinScene" type="CanvasLayer"]
+script = ExtResource("1_rwsqn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Restart" type="Button" parent="."]
+offset_left = 426.0
+offset_top = 267.0
+offset_right = 726.0
+offset_bottom = 367.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_574n6")
+text = "РЕСТАРТ"
+
+[node name="Menu" type="Button" parent="."]
+offset_left = 426.0
+offset_top = 418.0
+offset_right = 726.0
+offset_bottom = 518.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_574n6")
+text = "МЕНЮ"
+
+[node name="Player" type="Label" parent="."]
+offset_left = 353.0
+offset_top = 141.0
+offset_right = 805.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 40
+text = "Выиграл игрок справа"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_one_player_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_two_player_pressed"]
